@@ -1,0 +1,40 @@
+boot searchInBST(Node* root, int key)
+{
+    if(root == NULL)
+        return false;
+    
+    if(root->data == key)
+        return true;
+
+    if(root->data > key)
+    {
+        return searchInBST(root->left,key); 
+    }
+    else
+    {
+        return searchInBST(root->right,key);
+    }
+}
+
+# 2nd Method:
+
+bool searchInBST(Node* root, int key)
+{
+    Node* temp = root;
+    while (temp != NULL)
+    {
+        if(root->data == key)
+        {
+            return true;
+        }
+        if(root->data > key)
+        {
+            temp = temp->left;
+        }
+        else
+        {
+            temp = temp->right;
+        }
+    }
+    return false;
+}

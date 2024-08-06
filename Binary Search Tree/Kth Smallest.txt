@@ -1,0 +1,23 @@
+int solve(Node* root, int &i,int k)
+{
+    if(root == NULL)
+        return -1;
+    
+    //L
+    int left = solve(root->left,i,k);
+    if(left != -1)
+        return left;
+    
+    //N
+    i++;
+    if(i==k)
+        return root->data;
+    
+    return solve(root->right,i,k);
+}
+
+int kthSmallest(Node* root,int k)
+{
+    int ans = solve(root,0,k);
+    return ans;
+}

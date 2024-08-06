@@ -1,0 +1,30 @@
+void inorder(Node* root,vector<int> & inorderVal)
+{
+    if(root == NULL) 
+        return;
+    
+    inorder(root->left,inorderVal);
+    inorderVal.push_back(root->data);
+    inorder(root->right,inorderVal);
+}
+Node* flattenBST(Node* root)
+{
+    vector<int> inorderVal;
+    inorder(root,inorderVal);
+
+    Node* newRoot = new  Node(inorderVal[0]);
+    Node* curr = newRoot;
+
+    for(int i=1;i<inorderVal.size();i++)
+    {
+        Node* temp = new Node(inorderVal[i]);
+        curr->left = NULL;
+        curr->right = temp;
+        curr = curr->right;
+    }
+
+    curr->left = NULL;
+    curr->right = NULL; 
+
+    return newRoot;
+}

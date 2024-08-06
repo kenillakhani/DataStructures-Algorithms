@@ -1,0 +1,36 @@
+InOrder = 4 8 2 5 1 6 3 7
+postOrder = 8 4 5 2 6 7 3 1
+
+PreOrder = ???
+
+void createMapping(int in[],map<int, int> &nodeToIndex,int n,map<int,int> nodeToIndex)
+{
+    for(int i=0;i<n;i++)
+    {
+       nodeToIndex[in[i]] = i;
+    }
+}
+
+Node* solve(int in[],in post[],int &index,int inStart, int inEnd,int n)
+{
+    if(index < 0 || inStart > inEnd)
+        return NULL;
+    
+    int ele = post[index--];
+    Node* root = new Node(ele);
+    int position = nodeToIndex[ele];
+
+    root->right = solve(in, post, index, position+1, inEnd, n, nodeToIndex);
+    root->left = solve(in, post, index, inStart, position-1, n, nodeToIndex);
+
+    return root;
+}
+
+Node* buildTree(int in[],int post[],int n)
+{
+    int postOrderIndex = n-1;
+    map<int,int> nodeToIndex;
+    createMapping(in,nodeToIndex,n); 
+    Node* ans = solve(in, pre, postOrderIndex, 0 ,n-1, n);
+    return ans;
+}

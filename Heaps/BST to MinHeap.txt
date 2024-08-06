@@ -1,0 +1,29 @@
+# Convert BST to Min Heap (Lecture - 75)
+
+void inorder(Node* root,vector<int> &inOrder)
+{
+    if(root == NULL)
+        return;
+    
+    inorder(root->left,inOrder);
+    inOrder.push_back(root->data);
+    inorder(root->right,inOrder);
+}
+void fillPreOrder(Node* root, vector<int> inOrder, int &index)
+{
+    if(root == NULL)
+        return;
+
+    root->data = inOrder[index++];
+    fillPreOrder(root->left,inOrder,index);
+    fillPreOrder(root->right,inOrder,index);
+}
+Node* BSTtoHeap(Node* root)
+{
+    vector<int> inOrder;
+    inorder(root,inOrder);
+
+    fillPreOrder(root,inOrder,0);
+
+    return root;
+}

@@ -1,0 +1,38 @@
+pair<int,int> preSuc(Node* root,int key)
+{
+    Node* temp = root;
+    int pred = -1;
+    int succ = -1;
+
+    while(temp-> data != key)
+    {
+        if(temp->data > key)
+        {
+            succ = temp->data;
+            temp = temp->left;
+        }
+        else
+        {
+            pred = temp->data;
+            temp = temp->right;
+        } 
+    }
+
+    Node* left = root->left;
+    while(left != NULL)
+    {
+        pred = left->data;
+        left = left->right;
+    }
+
+    Node* right = root->right;
+    while(right != NULL)
+    {
+        succ = right->data;
+        right = right->left;
+    }
+
+    pair<int,int> ans = make_pair(pred,succ);
+
+    return  ans;
+}

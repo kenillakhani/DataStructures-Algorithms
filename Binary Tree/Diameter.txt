@@ -1,0 +1,52 @@
+int height(struct Nodde* node)
+{
+    if(node==NULL)
+        return 0;
+    
+    int left = height(node->left);
+    int right = height(node->right);
+
+    int ans = max(left,right)+1;
+    return ans;
+}
+
+int Diameter(struct Node* node)
+{
+    if(node==NULL)
+        return 0;
+
+    int op1 = Diameter(node->left);
+    int op2 = Diameter(node->right);
+    int op3 = height(node->right) + height(node->left) + 1;
+
+    int ans = max(op1,max(op2,op3));
+    return ans;
+}
+
+
+# Optimized :-
+
+pair<int,int> DiameterFast(struct Node* node)
+{
+    if(node == NULL){
+        pair<int,int> p = make_pair(0,0);
+        return p;   
+    }
+
+    pair<int,int> left = DiameterFast(node->left);
+    pair<int,int> right = DiameterFast(node->right);
+
+    int d1 = left.first;
+    int d2 = right.first;
+    int d3 = left.second + right.second + 1;
+
+    pair<int,int> p; 
+    p.first = max(d1,max(d2,d3));
+    p.second = max(left.second,right.second) + 1;
+
+    return p;
+}
+int Diameter(struct Node *root) {
+
+    return  DiameterFast(root).first;
+}

@@ -1,0 +1,19 @@
+void solv(Node* root,vecotr<int> &ans,int lvl)
+{
+    if(root == NULL)
+    return;
+
+    if(lvl == ans.size())
+    {
+        ans.push_back(root->data);
+    }
+
+    solv(root->left,ans,lvl+1);
+    solv(root->right,ans,lvl+1);
+}
+vector<int> leftView(Node* root)
+{
+    vector<int> ans;
+    solv(root,ans,0);
+    return ans;
+}
